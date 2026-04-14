@@ -24,13 +24,14 @@ def iniciar_servidor(host=HOST, port=PORT):
     return servidor, chat
 
 
-def correr_servidor(servidor, chat):
+def correr_servidor(servidor, chat , flag=None):
     """
     Bucle principal del servidor. Bloquea hasta que el socket se cierre.
     """
-    ejecutando = True
+    if flag is None:
+        flag =[True]
 
-    while ejecutando:
+    while flag[0]:
         try:
             lectura, _, _ = select.select(chat.conexiones_activas, [], [], 1)
         except:
@@ -38,9 +39,12 @@ def correr_servidor(servidor, chat):
 
         for sock in lectura:
             if sock == servidor:
-                cliente_sock, direccion = servidor.accept()
-                chat.registrar_cliente(cliente_sock, direccion)
-                print(f"Conectado: {direccion}")
+                try:
+                    cliente_sock, direccion = servidor.accept()
+                    chat.registrar_cliente(cliente_sock, direccion)
+                    print(f"Conectado: {direccion}")
+                except:
+                    break
             else:
                 try:
                     data = sock.recv(1024)

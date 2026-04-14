@@ -1,0 +1,32 @@
+# Cache de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Cache de pytest
+.pytest_cache/
+
+# Entornos virtuales
+venv/
+env/
+.env/
+.venv/
+
+# Variables de entorno
+.env
+*.env
+
+# Editores
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Distribución / build
+dist/
+build/
+*.egg-info/
